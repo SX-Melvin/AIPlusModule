@@ -1,0 +1,32 @@
+package AIPLUS
+
+/**
+ * 
+ *  This is a good place to put documentation about your OSpace.
+ */
+public Object AiplusRoot
+
+	public		Object	Globals = AIPLUS::AiplusGlobals
+
+
+
+	/**
+	 *  Content Server Startup Code
+	 */
+	public function Void Startup()
+
+		//
+		// Initialize globals object
+		//
+
+		Object	globals = $Aiplus = .Globals.Initialize()
+
+		//
+		// Initialize objects with __Init methods
+		//
+
+		$Kernel.OSpaceUtils.InitObjects( globals.f__InitObjs )
+
+	end
+
+end
