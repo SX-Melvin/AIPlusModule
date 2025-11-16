@@ -39,4 +39,24 @@ public Object FileVersionChange inherits LLIAPI::NodeCallbacks
 
 	end
 
+	override function Assoc CBDeleteInfo( DAPINODE node, Dynamic deleteInfo, Dynamic context = UNDEFINED )
+
+		Assoc   rtnVal
+		Dynamic apiError
+		String  errMsg
+
+		Integer status = DAPI.OK
+		Boolean ok = TRUE
+
+		$aiplus.AIPlusDatabase.DeleteVersion(node.pID)
+
+		rtnVal.OK = ok
+		rtnVal.ErrMsg = errMsg
+		rtnVal.ApiError = apiError
+		rtnVal.Status = status
+
+		return rtnVal
+
+	end
+
 end

@@ -4,7 +4,7 @@ public Object AIPlus inherits AIPLUS::AiplusRoot
 	
 	public string VersionsTable = "AIPlus_FileVersions"
 	
-	public function dynamic GetVersionByIDAndVersionNum(long nodeID)
+	public function dynamic GetVersionByID(long nodeID)
 		String		query
 		dynamic result = Undefined
 		
@@ -23,7 +23,7 @@ public Object AIPlus inherits AIPLUS::AiplusRoot
 	end
 	
 	public function void InsertVersion(long nodeID, long parentID, integer verNum, string name)
-		dynamic getByNodeID = .GetVersionByIDAndVersionNum(nodeID)
+		dynamic getByNodeID = .GetVersionByID(nodeID)
 		if(IsDefined(getByNodeID))
 			.UpdateVersion(nodeId, parentID, verNum, name)
 			return
@@ -36,6 +36,15 @@ public Object AIPlus inherits AIPLUS::AiplusRoot
 			.VersionsTable
 		)
 		.RunQuery(query, {verNum, nodeId, name, parentID})
+	end
+
+	public function void DeleteVersion(long nodeID)
+		string query = Str.Format(
+			"DELETE FROM %1 " +
+			"WHERE NodeID=:A1",
+			.VersionsTable
+		)
+		.RunQuery(query, {nodeId})
 	end
 	
 	public function void UpdateVersion(long nodeID, long parentID, integer verNum, string name)
