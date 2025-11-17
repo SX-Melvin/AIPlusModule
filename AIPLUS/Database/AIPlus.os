@@ -50,11 +50,11 @@ public Object AIPlus inherits AIPLUS::AiplusRoot
 	public function void UpdateVersion(long nodeID, long parentID, integer verNum, string name)
 		string query = Str.Format(
 			"UPDATE %1 " +
-			"SET VerNum=:A1, Name=':A2', ParentID=:A3 " +
-			"NodeID = :A4",
-			.VersionsTable
+			"SET VerNum=:A1, Name='%2', ParentID=:A2 " +
+			"WHERE NodeID = :A3",
+			.VersionsTable, name
 		)
-		.RunQuery(query, {verNum, name, parentID, nodeId})
+		.RunQuery(query, {verNum, parentID, nodeId})
 	end
 	
 	function Dynamic RunQuery( String querySQL, List params = undefined )

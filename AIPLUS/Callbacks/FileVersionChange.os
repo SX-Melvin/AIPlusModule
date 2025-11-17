@@ -36,7 +36,6 @@ public Object FileVersionChange inherits LLIAPI::NodeCallbacks
 		rtnVal.apiError = apiError
 
 		return rtnVal
-
 	end
 
 	override function Assoc CBDeleteInfo( DAPINODE node, Dynamic deleteInfo, Dynamic context = UNDEFINED )
