@@ -1,7 +1,7 @@
 package AIPLUS::Database
 
 public Object AIPlus inherits AIPLUS::AiplusRoot
-	
+	public string TempFileTable = "AIPlus_TempFile"
 	public string VersionsTable = "AIPlus_FileVersions"
 	
 	public function dynamic GetVersionByID(long nodeID)
@@ -43,6 +43,20 @@ public Object AIPlus inherits AIPLUS::AiplusRoot
 			"DELETE FROM %1 " +
 			"WHERE NodeID=:A1",
 			.VersionsTable
+		)
+		.RunQuery(query, {nodeId})
+	end
+	
+	public function void InsertTempFile(long nodeID, string name, string wID = undefined)
+		if(wID == undefined)
+			wID = $KERNEL.SystemPreferences.GetPref($aiplus.CommonConfig.ConfigSection, "WorkspaceId")
+		end
+
+		string query = Str.Format(
+			"INSERT INTO %1 " +
+			"(NodeID, WorkspaceID, Name) " +
+			"VALUES (:A1, '%2', '%3')",
+			.TempFileTable, wID, name
 		)
 		.RunQuery(query, {nodeId})
 	end

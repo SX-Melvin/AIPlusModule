@@ -46,8 +46,14 @@ public Object FileVersionChange inherits LLIAPI::NodeCallbacks
 
 		Integer status = DAPI.OK
 		Boolean ok = TRUE
-
-		$aiplus.AIPlusDatabase.DeleteVersion(node.pID)
+		
+		if($aiplus.AIPlusDatabase.GetVersionByID(node.pID) != undefined)
+			// Delete from file version if exist
+			$aiplus.AIPlusDatabase.DeleteVersion(node.pID)
+		else
+			// Insert to temporary file
+			$aiplus.AIPlusDatabase.InsertTempFile(node.pID, node.pNAME)
+		end
 
 		rtnVal.OK = ok
 		rtnVal.ErrMsg = errMsg
